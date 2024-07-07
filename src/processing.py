@@ -10,7 +10,7 @@ def filter_by_state(dict_list: List[Dict[str, Any]], state: Optional[str] = "EXE
 
 def sort_by_date(dict_list: List[Dict[str, Any]], bool_arg: bool = True) -> List[Dict[str, Any]]:
     """Функция сортировки по дате"""
-    return sorted(dict_list, key=lambda el: get_data(el["date"]), reverse=not bool_arg)
+    return sorted(dict_list, key=lambda el: get_data(el["date"]), reverse=bool_arg)
 
 
 # Входные данные
