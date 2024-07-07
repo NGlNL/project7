@@ -3,14 +3,14 @@ from typing import Any, Dict, List, Optional
 from src.widget import get_data
 
 
-def filter_by_state(dict_list: List[Dict[str, Any]], state: Optional[str] = "EXECUTED") -> List[Dict[str, Any]]:
+def filter_by_state(list_of_dicts: List[Dict[str, Any]], state: Optional[str] = "EXECUTED") -> List[Dict[str, Any]]:
     """Функция сортировки по статусу"""
-    return [el for el in dict_list if el.get("state") == state]
+    return [element for element in list_of_dicts if element.get("state") == state]
 
 
-def sort_by_date(dict_list: List[Dict[str, Any]], bool_arg: bool = True) -> List[Dict[str, Any]]:
+def sort_by_date(list_of_dicts: List[Dict[str, Any]], is_ascending: bool = True) -> List[Dict[str, Any]]:
     """Функция сортировки по дате"""
-    return sorted(dict_list, key=lambda el: get_data(el["date"]), reverse=bool_arg)
+    return sorted(list_of_dicts, key=lambda el: get_data(el["date"]), reverse=is_ascending)
 
 
 # Входные данные
