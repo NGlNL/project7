@@ -1,3 +1,5 @@
+from typing import Dict, Any
+
 import pytest
 
 
@@ -60,3 +62,12 @@ def transactions():
             "to": "Счет 14211924144426031657",
         },
     ]
+
+@pytest.fixture
+def transaction_usd() -> Dict[str, Any]:
+    return {"operationAmount": {"amount": "100.00", "currency": {"code": "USD"}}}
+
+
+@pytest.fixture
+def transaction_rub() -> Dict[str, Any]:
+    return {"operationAmount": {"amount": "5000.00", "currency": {"code": "RUB"}}}
