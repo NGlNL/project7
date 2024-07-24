@@ -10,3 +10,6 @@ def get_mask_account(numbers_account: int) -> str:
     str_number = str(numbers_account)
     mask_account = "**" + str_number[-4:]
     return mask_account
+
+
+print(get_mask_card_number(1234567812345678))
