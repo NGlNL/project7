@@ -4,8 +4,6 @@ from typing import Any, Dict
 import requests
 from dotenv import load_dotenv
 
-from src.utils import transactions_from_json
-
 load_dotenv()
 API_KEY = os.getenv("API_KEY")
 api_url = "https://api.exchangeratesapi.io/convert"
