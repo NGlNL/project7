@@ -1,4 +1,5 @@
 import re
+from collections import Counter
 from typing import Any, Dict, List, Optional
 
 from src.widget import get_data
@@ -27,16 +28,10 @@ def filter_transactions_on_search(transactions: List[Dict[str, Any]], search_str
     return filtered_transactions
 
 
-def count_operations_by_category(transactions: List[Dict[str, Any]], categories: List[str]) -> dict[Any, int]:
+def count_operations_by_category(transactions: list[dict], categories: list[str]) -> dict:
     """Считает операии по категориям"""
-    category_count = {category: 0 for category in categories}
-    for transaction in transactions:
-        descriptions = transaction.get("description")
-        for category in categories:
-            if category in descriptions:
-                category_count[category] += 1
-                break
-    return category_count
+    count_list = [operation["description"] for operation in transactions if operation["description"] in categories]
+    return dict(Counter(count_list))
 
 
 def filter_rub_transactions(transaction):
