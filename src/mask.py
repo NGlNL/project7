@@ -23,6 +23,3 @@ def get_mask_account(numbers_account: int) -> str:
     except Exception as e:
         logger.error(f"Неправильнй номер карты, ошибка: {e}")
         return "Ошибка"
-
-
-print(get_mask_card_number(1234567812345678))
