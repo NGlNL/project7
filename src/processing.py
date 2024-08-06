@@ -1,3 +1,5 @@
+import re
+from collections import Counter
 from typing import Any, Dict, List, Optional
 
 from src.widget import get_data
@@ -13,27 +15,25 @@ def sort_by_date(list_of_dicts: List[Dict[str, Any]], is_ascending: bool = True)
     return sorted(list_of_dicts, key=lambda el: get_data(el["date"]), reverse=is_ascending)
 
 
-# Входные данные
-example_data = [
-    {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
-    {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
-    {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
-    {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
-]
-# Вызов функии по дате в убывающем порядке
-sorted_data = sort_by_date(example_data)
-print("Сортировка в убывающем порядке:")
-for record in sorted_data:
-    print(record)
+def filter_transactions_on_search(transactions: List[Dict[str, Any]], search_string: str) -> List[Dict]:
+    """Фильтрует данные банковских операций по ключевому слову"""
+    filtered_transactions = []
+    pattern = re.compile(search_string, re.IGNORECASE)
+    for transaction in transactions:
+        descriptions = transaction.get("description", "")
+        if not transaction or not transaction.get("description"):
+            continue
+        if pattern.search(descriptions):
+            filtered_transactions.append(transaction)
+    return filtered_transactions
 
-# Вызов функии по дате в возрастающем порядке
-sorted_data_asc = sort_by_date(example_data, False)
-print("\nСортировка в возрастающем порядке:")
-for record in sorted_data_asc:
-    print(record)
 
-# Вызов функии по статусу
-filtered_data = filter_by_state(example_data)
-print("\nФильтрация по статусу (EXECUTED):")
-for record in filtered_data:
-    print(record)
+def count_operations_by_category(transactions: list[dict], categories: list[str]) -> dict:
+    """Считает операии по категориям"""
+    count_list = [operation["description"] for operation in transactions if operation["description"] in categories]
+    return dict(Counter(count_list))
+
+
+def filter_rub_transactions(transaction):
+    """Фильтрует по валюте 'RUB'"""
+    return [el for el in transaction if el["currency_code"] == "RUB"]
