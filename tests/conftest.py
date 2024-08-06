@@ -63,6 +63,7 @@ def transactions():
         },
     ]
 
+
 @pytest.fixture
 def transaction_usd() -> Dict[str, Any]:
     return {"operationAmount": {"amount": "100.00", "currency": {"code": "USD"}}}
