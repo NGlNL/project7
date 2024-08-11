@@ -20,10 +20,10 @@ def transactions_from_files(file_path: str) -> list[Any] | list | list[dict[Hash
                 if isinstance(data, list):
                     return data
         elif file_path.endswith(".csv"):
-            data = pd.read_csv(file_path, delimiter="; ")
+            data = pd.read_csv(file_path, delimiter=";").dropna()
             return data.to_dict(orient="records")
         elif file_path.endswith(".xlsx"):
-            data = pd.read_excel(file_path)
+            data = pd.read_excel(file_path).dropna()
             return data.to_dict(orient="records")
         else:
             logger.error("Неподдерживаемый формат файла")
